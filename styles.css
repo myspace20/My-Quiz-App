@@ -79,7 +79,7 @@ span {
 .question p{
     padding-bottom: 10px;
 }
-.submit button{
+.submit input{
     width: 150px;
     padding:20px;
     text-align: center;

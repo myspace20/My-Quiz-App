@@ -1,11 +1,9 @@
 const correctAnswer = ['B','A','B','A','A','B','B','A','A','A'];
-const form = document.querySelector('.quiz-form');
+const formUI = document.querySelector('.quiz-form');
 const result = document.querySelector('.score');
 const scoreFigure = document.querySelector('.score-figure');
-
 const form = document.querySelector('form');
-const input = document.querySelector('form input');
-const body = document.querySelector('body');
+
 
 
 
@@ -24,6 +22,33 @@ const self = (resource, callback) =>{
     request.send();
 };
 
+self('https://opentdb.com/api.php?amount=10&type=boolean', (data) => {
+
+    const questions = data.results;
+    // console.log((questions));
+
+    questions.forEach((question, id) =>{
+
+        id ++;
+        const questionTitle = question.question;
+        html = `
+            <div class="question">
+                <p class="text">
+                ${id}. ${questionTitle}.
+                </p>
+                <input type="radio" name="q${id}" id="option1" value="A">
+                <label for="option1" >True</label>
+                <br><br>
+                <input type="radio" name="q${id}" id="option2" value="B">
+                <label for="option2" >False</label>
+            </div>
+        `;
+        form.prepend(html);
+        
+    });
+    
+});
+
 
 
 form.addEventListener('submit', e => {
@@ -39,29 +64,6 @@ form.addEventListener('submit', e => {
         }
     });
 
-    self('https://opentdb.com/api.php?amount=10&type=boolean', data => {
-
-        console.log(data);
-    
-        data.forEach((result,id) => {
-            id ++;
-            const question = result.question;
-            html = `
-                <div class="question">
-                    <p class="text">
-                    ${id}. ${question}.
-                    </p>
-                    <input type="radio" name={"q${id}"} id="option1" value="A">
-                    <label for="option1" >True</label>
-                    <br><br>
-                    <input type="radio" name={"q${id}"} id="option2" value="B">
-                    <label for="option2" >False</label>
-                </div>
-            `;
-            body.innerHTML += html;
-        });
-        
-    });
     
     //show result
     scrollTo(0,0);
