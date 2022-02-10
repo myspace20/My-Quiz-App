@@ -1,4 +1,4 @@
-const correctAnswer = ['B','A','B','A','A','B','B','A','A','A'];
+const correctAnswer = [];
 const form = document.querySelector('.quiz-form');
 const result = document.querySelector('.score');
 const scoreFigure = document.querySelector('.score-figure');
@@ -7,7 +7,7 @@ const questionsContainer = document.querySelector('.main-questions');
 
 
 
-const self = (resource, callback) =>{
+const self = (resource, callback,correctAnswer) =>{
     const request = new XMLHttpRequest;
 
     request.addEventListener('readystatechange', () => {
@@ -22,15 +22,28 @@ const self = (resource, callback) =>{
     request.send();
 };
 
-self('https://opentdb.com/api.php?amount=10&type=boolean', (data) => {
+self('https://opentdb.com/api.php?amount=10&type=boolean', (data,correctAnswer) => {
 
     const questions = data.results;
     // console.log((questions));
 
-    questions.forEach((question, id) =>{
+    questions.forEach((question, id, correctAnswer) =>{
+
+       
 
         id ++;
         const questionTitle = question.question;
+        const correct_Answer = question.correct_answer;
+        console.log(correct_Answer);
+
+        if (correct_Answer ==='False'){
+            correctAnswer.push('A');
+        }else {
+            correctAnswer.push('B');
+        }
+        
+        
+        
         html = `
             <div class="question">
                 <p class="text">
@@ -46,6 +59,8 @@ self('https://opentdb.com/api.php?amount=10&type=boolean', (data) => {
         questionsContainer.innerHTML += html;
         
     });
+
+    
     
 });
 
@@ -77,5 +92,6 @@ form.addEventListener('submit', e => {
         }else {
             output ++;
         }
+        console.log(score);
     },10);
 });
