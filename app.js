@@ -3,6 +3,29 @@ const form = document.querySelector('.quiz-form');
 const result = document.querySelector('.score');
 const scoreFigure = document.querySelector('.score-figure');
 
+const form = document.querySelector('form');
+const input = document.querySelector('form input');
+const body = document.querySelector('body');
+
+
+
+const self = (resource, callback) =>{
+    const request = new XMLHttpRequest;
+
+    request.addEventListener('readystatechange', () => {
+
+        if (request.readyState === 4 && request.status === 200){
+            const data = JSON.parse(request.responseText);
+            callback(data);
+        }
+    });
+
+    request.open('GET',resource);
+    request.send();
+};
+
+
+
 form.addEventListener('submit', e => {
     e.preventDefault();
     
@@ -14,6 +37,30 @@ form.addEventListener('submit', e => {
         if (answer===correctAnswer[index]){
             score += 10;
         }
+    });
+
+    self('https://opentdb.com/api.php?amount=10&type=boolean', data => {
+
+        console.log(data);
+    
+        data.forEach((result,id) => {
+            id ++;
+            const question = result.question;
+            html = `
+                <div class="question">
+                    <p class="text">
+                    ${id}. ${question}.
+                    </p>
+                    <input type="radio" name={"q${id}"} id="option1" value="A">
+                    <label for="option1" >True</label>
+                    <br><br>
+                    <input type="radio" name={"q${id}"} id="option2" value="B">
+                    <label for="option2" >False</label>
+                </div>
+            `;
+            body.innerHTML += html;
+        });
+        
     });
     
     //show result
