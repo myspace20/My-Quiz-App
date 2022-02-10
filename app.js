@@ -1,8 +1,8 @@
 const correctAnswer = ['B','A','B','A','A','B','B','A','A','A'];
-const formUI = document.querySelector('.quiz-form');
+const form = document.querySelector('.quiz-form');
 const result = document.querySelector('.score');
 const scoreFigure = document.querySelector('.score-figure');
-const form = document.querySelector('form');
+const questionsContainer = document.querySelector('.main-questions');
 
 
 
@@ -34,7 +34,7 @@ self('https://opentdb.com/api.php?amount=10&type=boolean', (data) => {
         html = `
             <div class="question">
                 <p class="text">
-                ${id}. ${questionTitle}.
+                ${id}. ${questionTitle}
                 </p>
                 <input type="radio" name="q${id}" id="option1" value="A">
                 <label for="option1" >True</label>
@@ -43,7 +43,7 @@ self('https://opentdb.com/api.php?amount=10&type=boolean', (data) => {
                 <label for="option2" >False</label>
             </div>
         `;
-        form.prepend(html);
+        questionsContainer.innerHTML += html;
         
     });
     
