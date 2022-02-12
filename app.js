@@ -89,6 +89,9 @@ form.addEventListener('submit', e => {
         scoreFigure.textContent = `${output} %`;
         if (output === score){
             clearInterval(timer);
+            setTimeout(()=>{
+                location.reload();
+            },5000)
         }else {
             output ++;
         }
