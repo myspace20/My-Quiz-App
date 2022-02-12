@@ -91,7 +91,7 @@ form.addEventListener('submit', e => {
             clearInterval(timer);
             setTimeout(()=>{
                 location.reload();
-            },5000)
+            },10000)
         }else {
             output ++;
         }
