@@ -7,7 +7,7 @@ const questionsContainer = document.querySelector('.main-questions');
 
 
 
-const self = (resource, callback,correctAnswer) =>{
+const self = (resource, callback) =>{
     const request = new XMLHttpRequest;
 
     request.addEventListener('readystatechange', () => {
@@ -22,27 +22,17 @@ const self = (resource, callback,correctAnswer) =>{
     request.send();
 };
 
-self('https://opentdb.com/api.php?amount=10&type=boolean', (data,correctAnswer) => {
+self('https://opentdb.com/api.php?amount=10&type=boolean', (data) => {
 
     const questions = data.results;
     // console.log((questions));
 
-    questions.forEach((question, id, correctAnswer) =>{
+    questions.forEach((question, id) =>{
 
        
 
         id ++;
         const questionTitle = question.question;
-        const correct_Answer = question.correct_answer;
-        console.log(correct_Answer);
-
-        if (correct_Answer ==='False'){
-            correctAnswer.push('A');
-        }else {
-            correctAnswer.push('B');
-        }
-        
-        
         
         html = `
             <div class="question">
@@ -64,6 +54,21 @@ self('https://opentdb.com/api.php?amount=10&type=boolean', (data,correctAnswer) 
     
 });
 
+self('https://opentdb.com/api.php?amount=10&type=boolean', (data) =>{
+
+    const correct_Answer = question.correct_answer;
+    correct_Answer.forEach(Answer, () => {
+        if (Answer ==='True'){
+            correctAnswer.push('A');
+        }else {
+            correctAnswer.push('B');
+        }
+    })
+
+   
+    console.log(correct_Answer);
+});
+
 
 
 form.addEventListener('submit', e => {
@@ -74,7 +79,7 @@ form.addEventListener('submit', e => {
 
     //check answers
     userAnswer.forEach((answer, index) => {
-        if (answer===correctAnswer[index]){
+        if (answer===correct_Answer[index]){
             score += 10;
         }
     });
