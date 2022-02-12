@@ -24,6 +24,7 @@ const self = (resource, callback) =>{
 
 self('https://opentdb.com/api.php?amount=10&type=boolean', (data) => {
 
+    console.log(data);
     const questions = data.results;
     // console.log((questions));
 
@@ -54,20 +55,6 @@ self('https://opentdb.com/api.php?amount=10&type=boolean', (data) => {
     
 });
 
-self('https://opentdb.com/api.php?amount=10&type=boolean', (data) =>{
-
-    const correct_Answer = question.correct_answer;
-    correct_Answer.forEach(Answer, () => {
-        if (Answer ==='True'){
-            correctAnswer.push('A');
-        }else {
-            correctAnswer.push('B');
-        }
-    })
-
-   
-    console.log(correct_Answer);
-});
 
 
 
@@ -79,7 +66,7 @@ form.addEventListener('submit', e => {
 
     //check answers
     userAnswer.forEach((answer, index) => {
-        if (answer===correct_Answer[index]){
+        if (answer===correctAnswer[index]){
             score += 10;
         }
     });
