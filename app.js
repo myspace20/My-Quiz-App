@@ -23,8 +23,16 @@ const self = (resource, callback) =>{
 };
 
 self('https://opentdb.com/api.php?amount=10&type=boolean', (data) => {
+    const data_answers = data.results;
 
-    console.log(data);
+    data_answers.forEach(answer =>{
+        const  correct = answer.correct_answer;
+        if (correct === 'True'){
+            correctAnswer.push('A');
+        }else {
+            correctAnswer.push('B');
+        }
+    })
     const questions = data.results;
     // console.log((questions));
 
@@ -84,6 +92,6 @@ form.addEventListener('submit', e => {
         }else {
             output ++;
         }
-        console.log(score);
+
     },10);
 });
